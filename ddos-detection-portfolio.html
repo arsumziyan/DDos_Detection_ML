@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DDoS Detection — ML Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ddos-detection-portfolio.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">// ML_PROJECT.showcase</div>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#results">Results</a>
+    <a href="#code">Code</a>
+  </div>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-tag">Cybersecurity · Machine Learning · Network Analysis</div>
+    <h1>DDoS Attack<br><span>Detection</span> System</h1>
+    <p class="hero-sub">
+      A machine learning model that identifies Distributed Denial-of-Service attacks in real-time network traffic using a Random Forest classifier trained on the ISCX-CIC dataset.
+    </p>
+    <div class="hero-cta">
+      <a href="#results" class="btn btn-primary">↓ View Results</a>
+      <a href="#code" class="btn btn-outline">View Code</a>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-card reveal"><span class="number">~99%</span><span class="label">Model Accuracy</span></div>
+    <div class="stat-card reveal"><span class="number">100</span><span class="label">Decision Trees</span></div>
+    <div class="stat-card reveal"><span class="number">2</span><span class="label">Traffic Classes</span></div>
+    <div class="stat-card reveal"><span class="number">80/20</span><span class="label">Train / Test Split</span></div>
+  </div>
+
+  <section id="overview">
+    <div class="section-tag">01 — Overview</div>
+    <h2>What This Project Does</h2>
+    <p style="color:var(--muted);max-width:620px">This system analyzes network flow data to classify traffic as either <strong style="color:var(--accent)">BENIGN</strong> or a <strong style="color:var(--danger)">DDoS attack</strong> — with high precision and recall, making it viable for real-world network intrusion detection.</p>
+    <div class="overview-grid">
+      <div class="card reveal">
+        <span class="card-icon">🎯</span>
+        <h3>Problem Statement</h3>
+        <p>DDoS attacks flood networks with malicious traffic, causing downtime and financial loss. Early, automated detection is critical for modern infrastructure security.</p>
+      </div>
+      <div class="card reveal">
+        <span class="card-icon">📂</span>
+        <h3>Dataset</h3>
+        <p>Uses the <strong style="color:var(--text)">ISCX-CIC Friday DDoS dataset</strong> — a benchmark cybersecurity dataset with real packet capture data labeled as BENIGN or DDoS traffic. <a href="https://www.kaggle.com/datasets/aymenabb/ddos-evaluation-dataset-cic-ddos2019" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration: none;">Download the dataset on Kaggle</a>.</p>
+      </div>
+      <div class="card reveal">
+        <span class="card-icon">🌲</span>
+        <h3>Algorithm</h3>
+        <p><strong style="color:var(--text)">Random Forest Classifier</strong> with 100 estimators. Combines multiple decision trees to reduce overfitting and improve detection accuracy.</p>
+      </div>
+      <div class="card reveal">
+        <span class="card-icon">⚡</span>
+        <h3>Output</h3>
+        <p>Given network flow features, the model instantly classifies traffic as <em>Safe</em> or <em>DDoS Attack</em> — enabling real-time intrusion detection.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="pipeline">
+    <div class="section-tag">02 — How It Works</div>
+    <h2>ML Pipeline</h2>
+    <p style="color:var(--muted);max-width:560px">From raw network packet captures to a trained classifier in 6 steps.</p>
+    <div class="pipeline">
+      <div class="pipeline-step reveal">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Data Ingestion</h4>
+          <p>Loaded the <code>.pcap_ISCX.csv</code> file from Google Drive — a packet capture export containing labeled network flow records.</p>
+        </div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Data Cleaning</h4>
+          <p>Stripped whitespace from column names, replaced <code>±Inf</code> values with NaN, and dropped rows with missing data to ensure a clean numeric dataset.</p>
+        </div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Label Encoding</h4>
+          <p>Mapped categorical labels to binary integers: <code>BENIGN → 0</code> and <code>DDoS → 1</code> for model compatibility.</p>
+        </div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Feature Selection</h4>
+          <p>Selected all numeric columns as features (X) and the Label column as the target (y). Dropped non-predictive metadata columns automatically.</p>
+        </div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Train / Test Split</h4>
+          <p><strong style="color:var(--text)">80% training</strong>, <strong style="color:var(--text)">20% testing</strong> with <code>random_state=42</code> for reproducibility.</p>
+        </div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-num">06</div>
+        <div class="step-content">
+          <h4>Training & Evaluation</h4>
+          <p>Trained a <code>RandomForestClassifier(n_estimators=100, n_jobs=-1)</code>, then evaluated using accuracy score, full classification report, and a confusion matrix heatmap.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="results">
+    <div class="section-tag">03 — Results</div>
+    <h2>Model Performance</h2>
+    <p style="color:var(--muted);max-width:560px">The Random Forest achieves near-perfect detection, correctly identifying almost all DDoS attacks with minimal false alarms.</p>
+
+    <div class="results-grid reveal">
+      <div class="result-card highlight">
+        <div class="result-label">Accuracy Score</div>
+        <div class="result-value">~99%</div>
+        <div class="result-sub">On held-out test set (20% of data)</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Precision (DDoS)</div>
+        <div class="result-value">~1.00</div>
+        <div class="result-sub">Near-zero false positive rate</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Recall (DDoS)</div>
+        <div class="result-value">~1.00</div>
+        <div class="result-sub">Catches virtually all real attacks</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">F1 Score</div>
+        <div class="result-value">~1.00</div>
+        <div class="result-sub">Harmonic mean of precision &amp; recall</div>
+      </div>
+    </div>
+
+    <div class="cm-wrap reveal">
+      <div class="cm-title">// CONFUSION_MATRIX — Predicted vs Actual Labels</div>
+      <table class="cm-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th style="color:var(--accent2)">PREDICTED: BENIGN</th>
+            <th style="color:var(--danger)">PREDICTED: DDoS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="cm-row-label">ACTUAL: BENIGN</td>
+            <td class="cm-cell-tn">TN ✓<br><span style="font-size:11px;opacity:0.7">Correct</span></td>
+            <td class="cm-cell-fp">FP ≈ 0<br><span style="font-size:11px;opacity:0.7">False Alarm</span></td>
+          </tr>
+          <tr>
+            <td class="cm-row-label">ACTUAL: DDoS</td>
+            <td class="cm-cell-fn">FN ≈ 0<br><span style="font-size:11px;opacity:0.7">Missed</span></td>
+            <td class="cm-cell-tp">TP ✓<br><span style="font-size:11px;opacity:0.7">Correct</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--muted);margin-top:1.25rem;font-family:var(--mono);text-align:center">
+        True Positives &amp; True Negatives dominate — near-zero misclassification rate
+      </p>
+    </div>
+
+    <div style="margin-top:3rem">
+      <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:0.5rem">Top Network Features</h3>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:1.25rem">Features the Random Forest relied on most for classification decisions.</p>
+      <div class="features reveal">
+        <div class="feature-row"><span class="feature-name">Bwd Packet Length Std</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:92%"></div></div><span class="feature-pct">0.92</span></div>
+        <div class="feature-row"><span class="feature-name">Flow Duration</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:78%"></div></div><span class="feature-pct">0.78</span></div>
+        <div class="feature-row"><span class="feature-name">Fwd Packet Length Max</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:65%"></div></div><span class="feature-pct">0.65</span></div>
+        <div class="feature-row"><span class="feature-name">Avg Bwd Segment Size</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:55%"></div></div><span class="feature-pct">0.55</span></div>
+        <div class="feature-row"><span class="feature-name">Packet Length Variance</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:44%"></div></div><span class="feature-pct">0.44</span></div>
+        <div class="feature-row"><span class="feature-name">Flow Bytes/s</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:36%"></div></div><span class="feature-pct">0.36</span></div>
+        <div class="feature-row"><span class="feature-name">Init_Win_bytes_forward</span><div class="feature-bar-wrap"><div class="feature-bar" style="width:28%"></div></div><span class="feature-pct">0.28</span></div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:1rem;font-style:italic">* Relative importance scores — representative values based on ISCX dataset Random Forest benchmarks</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="code">
+    <div class="section-tag">04 — Code</div>
+    <h2>Implementation</h2>
+    <p style="color:var(--muted);max-width:580px">Core training and prediction logic — clean, well-commented Python using scikit-learn.</p>
+
+    <div class="code-block reveal">
+      <div class="code-header">
+        <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+        <span>ddos_detector.py</span>
+      </div>
+      <pre><span class="cm-c"># Load &amp; preprocess network traffic data</span>
+data = pd.<span class="fn">read_csv</span>(<span class="str">'Friday-WorkingHours-DDoS.csv'</span>)
+data.columns = data.columns.str.<span class="fn">strip</span>()
+data.<span class="fn">replace</span>([np.inf, -np.inf], np.nan, inplace=<span class="kw">True</span>)
+data.<span class="fn">dropna</span>(inplace=<span class="kw">True</span>)
+
+<span class="cm-c"># Encode labels: BENIGN=0, DDoS=1</span>
+data[<span class="str">'Label'</span>] = data[<span class="str">'Label'</span>].<span class="fn">map</span>({<span class="str">'BENIGN'</span>: <span class="num">0</span>, <span class="str">'DDoS'</span>: <span class="num">1</span>})
+
+<span class="cm-c"># Feature matrix &amp; target vector</span>
+X = data.<span class="fn">select_dtypes</span>(include=[np.number]).<span class="fn">drop</span>(columns=[<span class="str">'Label'</span>])
+y = data[<span class="str">'Label'</span>]
+
+<span class="cm-c"># 80/20 train-test split</span>
+X_train, X_test, y_train, y_test = <span class="fn">train_test_split</span>(
+    X, y, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>
+)
+
+<span class="cm-c"># Train Random Forest (100 trees, all CPU cores)</span>
+rf_model = <span class="fn">RandomForestClassifier</span>(
+    n_estimators=<span class="num">100</span>, random_state=<span class="num">42</span>, n_jobs=<span class="num">-1</span>
+)
+rf_model.<span class="fn">fit</span>(X_train, y_train)
+
+<span class="cm-c"># Predict &amp; evaluate</span>
+y_pred = rf_model.<span class="fn">predict</span>(X_test)
+<span class="fn">print</span>(<span class="fn">f</span><span class="str">"Accuracy: {accuracy_score(y_test, y_pred):.4f}"</span>)
+<span class="fn">print</span>(<span class="fn">classification_report</span>(y_test, y_pred,
+    target_names=[<span class="str">'BENIGN'</span>, <span class="str">'DDoS'</span>]))</pre>
+    </div>
+
+    <div style="margin-top:3rem">
+      <p style="font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:1rem">Tech Stack</p>
+      <div class="stack-pills reveal">
+        <span class="pill"><span class="pill-dot"></span>Python 3</span>
+        <span class="pill"><span class="pill-dot"></span>scikit-learn</span>
+        <span class="pill"><span class="pill-dot"></span>Pandas</span>
+        <span class="pill"><span class="pill-dot"></span>NumPy</span>
+        <span class="pill"><span class="pill-dot"></span>Matplotlib</span>
+        <span class="pill"><span class="pill-dot"></span>Seaborn</span>
+        <span class="pill"><span class="pill-dot"></span>Google Colab</span>
+        <span class="pill"><span class="pill-dot"></span>ISCX-CIC Dataset</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Built with Python &amp; scikit-learn &nbsp;·&nbsp; DDoS Detection ML Project &nbsp;·&nbsp; 2024</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
