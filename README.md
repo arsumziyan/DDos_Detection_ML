@@ -141,12 +141,4 @@ ddos-detection-ml/
 - The model is trained on a single day's traffic capture — broader generalization would require training on multiple attack types and time windows.
 - No feature scaling is applied (Random Forests don't require it).
 
----
-
-## 📄 License
-
-This project is open source under the [MIT License](LICENSE).
-
----
-
 *Built with Python & scikit-learn — DDoS Detection ML Project*
